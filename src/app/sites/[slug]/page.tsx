@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
+import VoiceWidget from '@/components/VoiceWidget'
 
 export default async function SitePage({ params }: { params: { slug: string } }) {
   const supabase = await createClient()
@@ -34,8 +35,8 @@ export default async function SitePage({ params }: { params: { slug: string } })
             <li className="text-sm text-slate-500">No doctors listed yet.</li>
           )}
         </ul>
-        <div className="mt-6 p-3 rounded-lg bg-teal-50 text-sm" data-voice-widget={business.id}>
-          Voice widget mounts here (Phase 2: Realtime).
+        <div className="mt-6" data-voice-widget={business.id}>
+          <VoiceWidget businessId={business.id} clinicName={business.name} />
         </div>
       </div>
     </main>
