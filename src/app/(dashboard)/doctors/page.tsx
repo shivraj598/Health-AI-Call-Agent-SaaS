@@ -22,17 +22,19 @@ export default async function DoctorsPage() {
               <p className="text-sm text-[#787774] mt-1 text-pretty">Add your first doctor to open booking.</p>
             </div>
           ) : (
-            <ul className="mt-4 space-y-2">
-              {(doctors ?? []).map((d: { id: string; name: string; specialty: string | null; slot_minutes: number; work_start: string; work_end: string }) => (
-                <li key={d.id} className="card-surface p-3 flex items-center justify-between gap-3">
-                  <span className="text-sm">
-                    <strong>{d.name}</strong>
-                    <span className="text-[#787774]"> · {d.specialty ?? 'General'} · {d.slot_minutes} min · {d.work_start.slice(0, 5)} to {d.work_end.slice(0, 5)}</span>
-                  </span>
-                  <DeleteDoctorButton id={d.id} name={d.name} />
-                </li>
-              ))}
-            </ul>
+            <table className="tbl mt-4">
+              <thead><tr><th>Name</th><th>Specialty</th><th>Hours</th><th></th></tr></thead>
+              <tbody>
+                {(doctors ?? []).map((d: { id: string; name: string; specialty: string | null; slot_minutes: number; work_start: string; work_end: string }) => (
+                  <tr key={d.id}>
+                    <td className="font-medium">{d.name}</td>
+                    <td>{d.specialty ?? 'General'} · {d.slot_minutes} min</td>
+                    <td className="font-mono text-xs">{d.work_start.slice(0, 5)} to {d.work_end.slice(0, 5)}</td>
+                    <td className="text-right"><DeleteDoctorButton id={d.id} name={d.name} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </section>
       </div>
