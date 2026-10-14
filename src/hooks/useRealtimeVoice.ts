@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { GoogleGenAI, type LiveServerMessage, Modality } from '@google/genai'
+import { GoogleGenAI, type LiveServerMessage } from '@google/genai'
 
 export type VoiceStatus = 'idle' | 'connecting' | 'live' | 'unavailable' | 'error'
 
