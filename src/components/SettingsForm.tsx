@@ -45,11 +45,11 @@ export default function SettingsForm({ business }: { business: Business }) {
         </select>
       </div>
       <div>
-        <label htmlFor="set-twilio" className="text-sm font-semibold">Twilio number <span className="font-normal text-slate-500">(optional)</span></label>
+        <label htmlFor="set-twilio" className="text-sm font-semibold">Twilio number <span className="font-normal text-[#787774]">(optional)</span></label>
         <input id="set-twilio" type="tel" className="input-field mt-2" value={twilio} onChange={(e) => setTwilio(e.target.value)} placeholder="+1 ..." />
       </div>
-      {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
-      {saved && <p className="text-sm text-teal-700" role="status">Settings saved.</p>}
+      {error && <p className="text-sm text-[#9F2F2D]" role="alert">{error}</p>}
+      {saved && <p className="text-sm text-[#111111]" role="status">Settings saved.</p>}
       <button className="btn-primary" disabled={loading}>{loading ? 'Saving…' : 'Save changes'}</button>
     </form>
   )
