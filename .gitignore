@@ -46,3 +46,10 @@ skills/
 .playwright-mcp/
 docs/spec-*.md
 docs/adr-*.md
+
+# playwright artifacts — screenshots, traces, reports
+.playwright-mcp/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
