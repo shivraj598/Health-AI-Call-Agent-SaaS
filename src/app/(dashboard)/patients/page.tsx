@@ -11,7 +11,7 @@ export default async function PatientsPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-semibold text-balance">Patients</h1>
+      <h1 className="font-serif-d text-4xl md:text-5xl text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>Patients</h1>
       <div className="grid gap-4 md:grid-cols-2 items-start">
         <AddPatientForm />
         <section className="card-raised p-6" aria-label="Patient list">
@@ -19,7 +19,7 @@ export default async function PatientsPage() {
           {(patients ?? []).length === 0 ? (
             <div className="text-center py-8">
               <p className="text-base font-medium">No patients yet</p>
-              <p className="text-sm text-slate-500 mt-1 text-pretty">Add records manually or let the voice agent create them on calls.</p>
+              <p className="text-sm text-[#787774] mt-1 text-pretty">Add records manually or let the voice agent create them on calls.</p>
             </div>
           ) : (
             <ul className="mt-4 space-y-2">
@@ -27,7 +27,7 @@ export default async function PatientsPage() {
                 <li key={p.id} className="card-surface p-3 flex items-center justify-between gap-3">
                   <span className="text-sm">
                     <strong>{p.full_name}</strong>
-                    <span className="text-slate-500"> · {p.phone}</span>
+                    <span className="text-[#787774]"> · {p.phone}</span>
                   </span>
                   <DeletePatientButton id={p.id} name={p.full_name} />
                 </li>
