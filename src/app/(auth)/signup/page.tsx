@@ -47,7 +47,7 @@ export default function SignupPage() {
         <input className="input-field" placeholder="Full name" value={fullName} onChange={(e) => setFullName(e.target.value)} />
         <input className="input-field" placeholder="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <input className="input-field" placeholder="Password (min 6)" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-        {err && <p className="text-sm text-red-600">{err}</p>}
+        {err && <p className="text-sm text-[#9F2F2D]">{err}</p>}
         <button className="btn-primary w-full" disabled={loading}>{loading ? 'Creating…' : 'Sign up'}</button>
       </form>
       <p className="text-sm mt-4">Have an account? <Link href="/login" className="underline">Login</Link></p>
