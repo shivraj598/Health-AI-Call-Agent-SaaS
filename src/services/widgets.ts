@@ -1,9 +1,11 @@
-import React from 'react'
+import type { Business, Doctor } from '@/types/database'
 
-const widgets = () => {
-  return (
-    <div>widgets</div>
-  )
+export interface WidgetData {
+  business: Pick<Business, 'id' | 'name' | 'slug' | 'phone' | 'plan'>
+  doctors: Pick<Doctor, 'id' | 'name' | 'specialty' | 'slot_minutes'>[]
 }
 
-export default widgets
+// Phase 2: client fetch helper. Server pages query Supabase directly.
+export async function fetchWidgetData(): Promise<WidgetData | null> {
+  return null
+}

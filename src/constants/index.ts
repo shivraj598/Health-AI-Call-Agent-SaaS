@@ -1,9 +1,2 @@
-import React from 'react'
-
-const index = () => {
-  return (
-    <div>index</div>
-  )
-}
-
-export default index
+export const APP_NAME = 'Health AI Call Agent SaaS'
+export const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'

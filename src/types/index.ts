@@ -1,9 +1,1 @@
-import React from 'react'
-
-const index = () => {
-  return (
-    <div>index</div>
-  )
-}
-
-export default index
+export type { Business, Doctor, Patient, Appointment, Call, Subscription, Plan } from './database'

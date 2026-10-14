@@ -1,9 +1,13 @@
-import React from 'react'
+'use client'
 
-const voice = () => {
-  return (
-    <div>voice</div>
-  )
+import { create } from 'zustand'
+
+interface VoiceState {
+  status: 'idle' | 'connecting' | 'live'
+  setStatus: (s: VoiceState['status']) => void
 }
 
-export default voice
+export const useVoiceStore = create<VoiceState>((set) => ({
+  status: 'idle',
+  setStatus: (status) => set({ status }),
+}))
