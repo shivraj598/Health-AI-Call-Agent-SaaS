@@ -31,10 +31,10 @@ export default async function DashboardHome() {
   const limits = PLAN_LIMITS[business.plan]
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <p className="badge border-teal-600 text-teal-700 bg-white">{business.plan} plan</p>
-        <h1 className="text-3xl font-semibold mt-3 text-balance">{business.name}</h1>
+        <span className="badge badge-bone">{business.plan} plan</span>
+        <h1 className="font-serif-d text-4xl md:text-5xl mt-4 text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>{business.name}</h1>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">
@@ -45,47 +45,47 @@ export default async function DashboardHome() {
           ['Calls logged', String(calls?.length ?? 0), 'latest below', '/calls'],
         ].map(([label, value, sub, href]) => (
           <Link key={label} href={href} className="stat-card p-6 block">
-            <p className="text-sm text-slate-500">{label}</p>
-            <p className="text-4xl font-semibold mt-2">{value}</p>
-            <p className="text-sm text-slate-500 mt-1">{sub}</p>
+            <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#787774]">{label}</p>
+            <p className="font-serif-d text-5xl mt-3">{value}</p>
+            <p className="text-sm text-[#787774] mt-2">{sub}</p>
           </Link>
         ))}
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
-        <section className="card-raised p-6" aria-label="Upcoming visits">
-          <h2 className="text-xl font-semibold">Upcoming visits</h2>
+        <section className="card-surface p-8" aria-label="Upcoming visits">
+          <h2 className="font-serif-d text-2xl">Upcoming visits</h2>
           {(upcoming ?? []).length === 0 ? (
             <div className="mt-4 text-center py-8">
               <p className="text-base font-medium">No upcoming visits</p>
-              <p className="text-sm text-slate-500 mt-1 text-pretty">Add a doctor and a patient, then book the first visit.</p>
+              <p className="text-sm text-[#787774] mt-1 text-pretty">Add a doctor and a patient, then book the first visit.</p>
               <Link href="/appointments" className="btn-secondary mt-4">Book a visit</Link>
             </div>
           ) : (
             <ul className="mt-4 space-y-2">
               {(upcoming ?? []).map((a: { id: string; starts_at: string; doctors: unknown; patients: unknown }) => (
-                <li key={a.id} className="card-surface p-3 text-sm">
+                <li key={a.id} className="card-surface p-3 text-sm !shadow-none">
                   <strong>{new Date(a.starts_at).toLocaleString()}</strong>
-                  <span className="text-slate-500"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
+                  <span className="text-[#787774]"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
                 </li>
               ))}
             </ul>
           )}
         </section>
 
-        <section className="card-raised p-6" aria-label="Recent calls">
-          <h2 className="text-xl font-semibold">Recent calls</h2>
+        <section className="card-surface p-8" aria-label="Recent calls">
+          <h2 className="font-serif-d text-2xl">Recent calls</h2>
           {(calls ?? []).length === 0 ? (
             <div className="mt-4 text-center py-8">
               <p className="text-base font-medium">No calls yet</p>
-              <p className="text-sm text-slate-500 mt-1 text-pretty">Widget and Twilio calls will appear here with transcripts.</p>
+              <p className="text-sm text-[#787774] mt-1 text-pretty">Widget and Twilio calls will appear here with transcripts.</p>
             </div>
           ) : (
             <ul className="mt-4 space-y-2">
-              {(calls ?? []).map((c: { id: string; channel: string; summary: string | null; created_at: string }) => (
-                <li key={c.id} className="card-surface p-3 text-sm">
+              {(calls ?? []).map((c: { id: string; channel: string; summary: string | null }) => (
+                <li key={c.id} className="card-surface p-3 text-sm !shadow-none">
                   <strong>{c.channel}</strong>
-                  <span className="text-slate-500"> · {c.summary ?? 'No summary yet'}</span>
+                  <span className="text-[#787774]"> · {c.summary ?? 'No summary yet'}</span>
                 </li>
               ))}
             </ul>
