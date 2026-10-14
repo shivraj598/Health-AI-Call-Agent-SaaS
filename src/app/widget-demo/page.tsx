@@ -9,7 +9,7 @@ export default function WidgetDemo() {
         {demoId ? (
           <Link href={`/sites/${demoId}`} className="btn-primary mt-4">Open demo clinic</Link>
         ) : (
-          <p className="text-sm text-slate-500 mt-2">
+          <p className="text-sm text-[#787774] mt-2">
             Set <code>NEXT_PUBLIC_DEMO_BUSINESS_ID</code> to a business slug to preview the live widget.
           </p>
         )}
