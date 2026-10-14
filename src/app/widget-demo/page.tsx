@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function WidgetDemo() {
   const demoId = process.env.NEXT_PUBLIC_DEMO_BUSINESS_ID
   return (
-    <main className="min-h-screen gradient-mesh p-6 flex items-center justify-center">
+    <main className="bg-page min-h-screen p-6 flex items-center justify-center">
       <div className="card-raised max-w-md w-full p-8">
         <h1 className="text-xl font-bold">Widget demo</h1>
         {demoId ? (
