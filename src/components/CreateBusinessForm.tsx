@@ -29,16 +29,16 @@ export default function CreateBusinessForm() {
   return (
     <form onSubmit={onSubmit} className="card-raised p-8 max-w-md space-y-4" aria-label="Create clinic">
       <h1 className="text-2xl font-semibold text-balance">Create your clinic</h1>
-      <p className="text-base text-slate-600 text-pretty">One clinic per account for now. You can add doctors right after.</p>
+      <p className="text-base text-[#2F3437] text-pretty">One clinic per account for now. You can add doctors right after.</p>
       <div>
         <label htmlFor="biz-name" className="text-sm font-semibold">Clinic name</label>
         <input id="biz-name" className="input-field mt-2" value={name} onChange={(e) => setName(e.target.value)} />
       </div>
       <div>
-        <label htmlFor="biz-phone" className="text-sm font-semibold">Phone <span className="font-normal text-slate-500">(optional)</span></label>
+        <label htmlFor="biz-phone" className="text-sm font-semibold">Phone <span className="font-normal text-[#787774]">(optional)</span></label>
         <input id="biz-phone" type="tel" className="input-field mt-2" value={phone} onChange={(e) => setPhone(e.target.value)} />
       </div>
-      {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
+      {error && <p className="text-sm text-[#9F2F2D]" role="alert">{error}</p>}
       <button className="btn-primary w-full" disabled={loading}>{loading ? 'Creating…' : 'Create clinic'}</button>
     </form>
   )
