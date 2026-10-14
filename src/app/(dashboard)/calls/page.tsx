@@ -1,4 +1,4 @@
-import { requireBusiness } from '@/lib/dal'
+import { requireBusiness, one } from '@/lib/dal'
 
 export default async function CallsPage() {
   const { supabase, business } = await requireBusiness()
@@ -28,14 +28,14 @@ export default async function CallsPage() {
           {(calls ?? []).map((c: {
             id: string; channel: string; direction: string; transcript: string | null;
             summary: string | null; duration_sec: number; created_at: string;
-            patients: { full_name: string } | null;
+            patients: unknown;
           }) => (
             <article key={c.id} className="card-raised p-6">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="badge border-teal-600 text-teal-700 bg-white">{c.channel}</span>
                 <span className="badge bg-slate-50 text-slate-600">{c.direction}</span>
                 <span className="text-sm text-slate-500 ml-auto">
-                  {new Date(c.created_at).toLocaleString()} · {c.duration_sec}s{c.patients ? ` · ${c.patients.full_name}` : ''}
+                  {new Date(c.created_at).toLocaleString()} · {c.duration_sec}s{one<{ full_name: string }>(c.patients as { full_name: string } | { full_name: string }[] | null)?.full_name ? ` · ${one<{ full_name: string }>(c.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}` : ''}
                 </span>
               </div>
               {c.summary && <p className="text-base font-medium mt-4 text-pretty">{c.summary}</p>}
