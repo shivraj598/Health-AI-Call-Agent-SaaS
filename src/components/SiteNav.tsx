@@ -5,11 +5,11 @@ import Link from 'next/link'
 import { PhoneCall, List, X } from '@phosphor-icons/react'
 
 const LINKS = [
-  { href: '#demo-call', label: 'Live demo' },
-  { href: '#benefits', label: 'Benefits' },
-  { href: '#how', label: 'How it works' },
-  { href: '#proof', label: 'Clinics' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '/#demo-call', label: 'Live demo' },
+  { href: '/#benefits', label: 'Benefits' },
+  { href: '/#how', label: 'How it works' },
+  { href: '/#proof', label: 'Clinics' },
+  { href: '/#faq', label: 'FAQ' },
 ]
 
 export default function SiteNav() {
