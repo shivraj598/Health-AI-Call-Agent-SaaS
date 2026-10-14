@@ -37,7 +37,7 @@ export function AddDoctorForm() {
         <input id="doc-name" className="input-field mt-2" value={name} onChange={(e) => setName(e.target.value)} placeholder="Dr. Sharma" />
       </div>
       <div>
-        <label htmlFor="doc-spec" className="text-sm font-semibold">Specialty <span className="font-normal text-slate-500">(optional)</span></label>
+        <label htmlFor="doc-spec" className="text-sm font-semibold">Specialty <span className="font-normal text-[#787774]">(optional)</span></label>
         <input id="doc-spec" className="input-field mt-2" value={specialty} onChange={(e) => setSpecialty(e.target.value)} placeholder="Dental" />
       </div>
       <fieldset>
@@ -50,7 +50,7 @@ export function AddDoctorForm() {
               onClick={() => toggle(d)}
               aria-pressed={days.includes(d)}
               className={`px-3 py-2 text-sm font-medium rounded-lg border transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] ${
-                days.includes(d) ? 'bg-teal-700 text-white border-teal-700' : 'bg-white text-slate-600'
+                days.includes(d) ? 'bg-[#111111] text-white border-[#111111]' : 'bg-white text-[#2F3437]'
               }`}
             >
               {label}
@@ -58,7 +58,7 @@ export function AddDoctorForm() {
           ))}
         </div>
       </fieldset>
-      {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
+      {error && <p className="text-sm text-[#9F2F2D]" role="alert">{error}</p>}
       <button className="btn-primary w-full" disabled={loading}>{loading ? 'Adding…' : 'Add doctor'}</button>
     </form>
   )
@@ -68,7 +68,7 @@ export function DeleteDoctorButton({ id, name }: { id: string; name: string }) {
   const [loading, setLoading] = useState(false)
   return (
     <button
-      className="text-sm font-medium text-red-600 hover:underline disabled:opacity-40"
+      className="text-sm font-medium text-[#9F2F2D] hover:underline disabled:opacity-40"
       disabled={loading}
       onClick={async () => {
         if (!confirm(`Remove ${name}? Past visits stay in history.`)) return
