@@ -22,17 +22,18 @@ export default async function PatientsPage() {
               <p className="text-sm text-[#787774] mt-1 text-pretty">Add records manually or let the voice agent create them on calls.</p>
             </div>
           ) : (
-            <ul className="mt-4 space-y-2">
-              {(patients ?? []).map((p: { id: string; full_name: string; phone: string }) => (
-                <li key={p.id} className="card-surface p-3 flex items-center justify-between gap-3">
-                  <span className="text-sm">
-                    <strong>{p.full_name}</strong>
-                    <span className="text-[#787774]"> · {p.phone}</span>
-                  </span>
-                  <DeletePatientButton id={p.id} name={p.full_name} />
-                </li>
-              ))}
-            </ul>
+            <table className="tbl mt-4">
+              <thead><tr><th>Name</th><th>Phone</th><th></th></tr></thead>
+              <tbody>
+                {(patients ?? []).map((p: { id: string; full_name: string; phone: string }) => (
+                  <tr key={p.id}>
+                    <td className="font-medium">{p.full_name}</td>
+                    <td className="font-mono text-xs">{p.phone}</td>
+                    <td className="text-right"><DeletePatientButton id={p.id} name={p.full_name} /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </section>
       </div>
