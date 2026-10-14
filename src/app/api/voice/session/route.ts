@@ -1,11 +1,14 @@
 import { NextResponse } from 'next/server'
+import { GoogleGenAI } from '@google/genai'
 import { createServiceClient } from '@/lib/supabase/server'
-import { VOICE_TOOLS } from '@/ai/tools'
+import { GEMINI_FUNCTION_DECLARATIONS } from '@/ai/tools'
 
-// GET /api/voice/session?businessId= -> ephemeral client secret for WebRTC.
-// Keeps OPENAI_API_KEY server side. Needs OPENAI_API_KEY set.
+const MODEL = 'gemini-live-2.5-flash-preview'
+
+// GET /api/voice/session?businessId= -> short lived token for browser Live connect.
+// Keeps GEMINI_API_KEY server side. Needs GEMINI_API_KEY set.
 export async function GET(request: Request) {
-  const key = process.env.OPENAI_API_KEY
+  const key = process.env.GEMINI_API_KEY
   if (!key) return NextResponse.json({ error: 'Voice is not configured yet.' }, { status: 503 })
   const businessId = new URL(request.url).searchParams.get('businessId') || ''
   if (!businessId) return NextResponse.json({ error: 'businessId is required.' }, { status: 400 })
@@ -23,17 +26,26 @@ export async function GET(request: Request) {
     'Never invent times. Only offer times returned by check_availability.',
   ].join(' ')
 
-  const res = await fetch('https://api.openai.com/v1/realtime/sessions', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      model: process.env.OPENAI_REALTIME_MODEL || 'gpt-realtime',
-      modalities: ['audio', 'text'],
-      instructions,
-      tools: VOICE_TOOLS,
-    }),
-  })
-  if (!res.ok) return NextResponse.json({ error: 'Could not start voice session.' }, { status: 502 })
-  const session = await res.json()
-  return NextResponse.json({ client_secret: session.client_secret?.value, model: session.model })
+  try {
+    const ai = new GoogleGenAI({ apiKey: key })
+    const token = await ai.authTokens.create({
+      config: {
+        uses: 1,
+        expireTime: new Date(Date.now() + 15 * 60000).toISOString(),
+        liveConnectConstraints: {
+          model: MODEL,
+          config: {
+            responseModalities: ['AUDIO'],
+            systemInstruction: instructions,
+            tools: [{ functionDeclarations: GEMINI_FUNCTION_DECLARATIONS }],
+            inputAudioTranscription: {},
+            outputAudioTranscription: {},
+          },
+        },
+      },
+    })
+    return NextResponse.json({ token: token.name, model: MODEL })
+  } catch {
+    return NextResponse.json({ error: 'Could not start voice session.' }, { status: 502 })
+  }
 }
