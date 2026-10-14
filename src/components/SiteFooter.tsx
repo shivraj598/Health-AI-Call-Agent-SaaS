@@ -17,8 +17,8 @@ export default function SiteFooter() {
         <nav aria-label="Footer" className="flex gap-16 text-sm">
           <div className="flex flex-col gap-2">
             <span className="font-semibold">Product</span>
-            <Link href="#benefits" className="text-[#787774] hover:text-[#111111]">Benefits</Link>
-            <Link href="#how" className="text-[#787774] hover:text-[#111111]">How it works</Link>
+            <Link href="/#benefits" className="text-[#787774] hover:text-[#111111]">Benefits</Link>
+            <Link href="/#how" className="text-[#787774] hover:text-[#111111]">How it works</Link>
             <Link href="/widget-demo" className="text-[#787774] hover:text-[#111111]">Widget demo</Link>
           </div>
           <div className="flex flex-col gap-2">
