@@ -27,7 +27,7 @@ export default function TaglineReveal({ lines }: { lines: string[] }) {
 
   return (
     <div ref={ref} className="mx-auto max-w-3xl px-6">
-      <p className="text-4xl md:text-6xl font-semibold leading-tight text-balance">
+      <p className="font-serif-d text-4xl md:text-6xl font-normal leading-tight text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.15 }}>
         {lines.map((line, li) => (
           <span key={li} className="block">
             {line.split(' ').map((w, wi) => (
