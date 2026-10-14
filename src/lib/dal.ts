@@ -33,3 +33,9 @@ export function monthStartISO() {
   const d = new Date()
   return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1)).toISOString()
 }
+
+// Untyped supabase-js returns to-one joins as arrays. Normalize to object.
+export function one<T>(v: T | T[] | null | undefined): T | null {
+  if (!v) return null
+  return Array.isArray(v) ? (v[0] ?? null) : v
+}
