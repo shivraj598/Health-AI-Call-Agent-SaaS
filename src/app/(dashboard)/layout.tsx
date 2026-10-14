@@ -1,10 +1,13 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import BusinessProvider from '@/providers/BusinessProvider'
+import DashboardNav from '@/components/DashboardNav'
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 
   const { data: businesses } = await supabase
@@ -16,12 +19,11 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <BusinessProvider business={businesses?.[0] ?? null}>
-      <div className="min-h-screen">
-        <header className="card-raised m-4 p-4 flex items-center justify-between">
-          <strong>Clinic Dashboard</strong>
-          <span className="text-sm text-slate-500">{user.email}</span>
-        </header>
-        <main className="p-4">{children}</main>
+      <div className="min-h-screen bg-page flex flex-col md:flex-row">
+        <DashboardNav email={user.email ?? ''} />
+        <main id="main" className="flex-1 p-4 md:p-8 max-w-5xl w-full">
+          {children}
+        </main>
       </div>
     </BusinessProvider>
   )
