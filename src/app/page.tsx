@@ -6,7 +6,6 @@ import {
   MoonStars,
   AddressBook,
   CheckCircle,
-  Plus,
 } from '@phosphor-icons/react/dist/ssr'
 import SiteNav from '@/components/SiteNav'
 import SiteFooter from '@/components/SiteFooter'
