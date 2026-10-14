@@ -14,44 +14,44 @@ const config: Config = {
   				'var(--font-manrope)',
   				'system-ui',
   				'sans-serif'
+  			],
+  			serif: [
+  				'var(--font-serif)',
+  				'Georgia',
+  				'serif'
+  			],
+  			mono: [
+  				'var(--font-mono)',
+  				'ui-monospace',
+  				'monospace'
   			]
   		},
   		colors: {
-  			brand: {
-  				'50': '#f2f8f9',
-  				'100': '#eaf6f7',
-  				'200': '#c8eaec',
-  				'300': '#8dcdd0',
-  				'400': '#22c4d0',
-  				'500': '#14a8b5',
-  				'600': '#0d7377',
-  				'700': '#0e8f94',
-  				'800': '#0a4a4d',
-  				'900': '#0a3d40',
-  				'950': '#072b2e'
+  			background: '#F7F6F3',
+  			foreground: '#111111',
+  			card: '#FFFFFF',
+  			'card-foreground': '#111111',
+  			popover: '#FFFFFF',
+  			'popover-foreground': '#111111',
+  			primary: {
+  				DEFAULT: '#111111',
+  				foreground: '#FFFFFF'
+  			},
+  			secondary: {
+  				DEFAULT: '#EFEDE8',
+  				foreground: '#111111'
+  			},
+  			muted: {
+  				DEFAULT: '#F7F6F3',
+  				foreground: '#787774'
   			},
   			accent: {
-  				'50': '#ecfdf5',
-  				'100': '#d1fae5',
-  				'200': '#a7f3d0',
-  				'300': '#6ee7b7',
-  				'400': '#34d399',
-  				'500': '#10b981',
-  				'600': '#059669',
-  				'700': '#047857'
+  				DEFAULT: '#EFEDE8',
+  				foreground: '#111111'
   			},
-  			surface: {
-  				'50': '#f8fcfd',
-  				'100': '#f2f8f9',
-  				'200': '#eaf6f7',
-  				'300': '#c8eaec',
-  				'400': '#8dcdd0',
-  				'500': '#14a8b5',
-  				'600': '#0e8f94',
-  				'700': '#0d7377',
-  				'800': '#0a4a4d',
-  				'900': '#0a3d40'
-  			}
+  			border: '#EAEAEA',
+  			input: '#EAEAEA',
+  			ring: '#111111',
   		},
   		borderRadius: {
   			DEFAULT: '8px',
