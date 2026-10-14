@@ -36,3 +36,12 @@ yarn-error.log*
 !.env.example
 
 
+
+# local agent working files — never commit
+CONTEXT.md
+.agents/
+.skills/
+skills/
+.scratch/
+docs/spec-*.md
+docs/adr-*.md
