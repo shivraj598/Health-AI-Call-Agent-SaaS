@@ -1,4 +1,5 @@
 import { requireBusiness } from '@/lib/dal'
+import { one } from '@/lib/dal'
 import { BookingForm, AppointmentActions } from '@/components/BookingForm'
 
 export default async function AppointmentsPage() {
@@ -43,7 +44,7 @@ export default async function AppointmentsPage() {
           </div>
         ) : (
           <ol className="mt-4 relative border-l divider ml-2 space-y-4">
-            {(upcoming ?? []).map((a: { id: string; starts_at: string; ends_at: string; doctors: { name: string } | null; patients: { full_name: string } | null }) => (
+            {(upcoming ?? []).map((a: { id: string; starts_at: string; doctors: unknown; patients: unknown }) => (
               <li key={a.id} className="ml-6 relative">
                 <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-teal-600 ring-4 ring-teal-50" aria-hidden />
                 <div className="card-surface p-3 flex flex-wrap items-center justify-between gap-3">
@@ -51,7 +52,7 @@ export default async function AppointmentsPage() {
                     <strong>
                       {new Date(a.starts_at).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </strong>
-                    <span className="text-slate-500"> · {a.doctors?.name} · {a.patients?.full_name}</span>
+                    <span className="text-slate-500"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
                   </span>
                   <AppointmentActions id={a.id} />
                 </div>
@@ -65,9 +66,9 @@ export default async function AppointmentsPage() {
         <section className="card-raised p-6" aria-label="History">
           <h2 className="text-xl font-semibold">History</h2>
           <ul className="mt-4 space-y-2">
-            {(past ?? []).map((a: { id: string; starts_at: string; status: string; doctors: { name: string } | null; patients: { full_name: string } | null }) => (
+            {(past ?? []).map((a: { id: string; starts_at: string; status: string; doctors: unknown; patients: unknown }) => (
               <li key={a.id} className="text-sm text-slate-600">
-                {new Date(a.starts_at).toLocaleDateString()} · {a.doctors?.name} · {a.patients?.full_name} · {a.status}
+                {new Date(a.starts_at).toLocaleDateString()} · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name} · {a.status}
               </li>
             ))}
           </ul>
