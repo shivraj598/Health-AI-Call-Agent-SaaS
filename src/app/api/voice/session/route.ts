@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { GoogleGenAI } from '@google/genai'
+import { GoogleGenAI, Modality } from '@google/genai'
 import { createServiceClient } from '@/lib/supabase/server'
 import { GEMINI_FUNCTION_DECLARATIONS } from '@/ai/tools'
 
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
         liveConnectConstraints: {
           model: MODEL,
           config: {
-            responseModalities: ['AUDIO'],
+            responseModalities: [Modality.AUDIO],
             systemInstruction: instructions,
             tools: [{ functionDeclarations: GEMINI_FUNCTION_DECLARATIONS }],
             inputAudioTranscription: {},
