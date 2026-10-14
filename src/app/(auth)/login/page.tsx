@@ -52,7 +52,7 @@ export default function LoginPage() {
       <form onSubmit={onSubmit} className="mt-4 space-y-3">
         <input className="input-field" placeholder="Email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
         <input className="input-field" placeholder="Password" type="password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-        {err && <p className="text-sm text-red-600">{err}</p>}
+        {err && <p className="text-sm text-[#9F2F2D]">{err}</p>}
         <button className="btn-primary w-full" disabled={loading}>{loading ? 'Logging in…' : 'Login'}</button>
       </form>
       <div className="mt-4 space-y-2 border-t divider pt-4">
@@ -60,10 +60,10 @@ export default function LoginPage() {
           Autofill demo login
         </button>
         <button onClick={loginAsDemo} disabled={demoLoading} className="btn-primary w-full">
-          <Lightning size={18} weight="duotone" aria-hidden />
+          <Lightning size={18} weight="fill" aria-hidden />
           {demoLoading ? 'Opening demo…' : 'Login as demo customer'}
         </button>
-        <p className="text-sm text-slate-500 text-pretty">Opens Boudha Dental Care with visits, patients, and call records.</p>
+        <p className="text-sm text-[#787774] text-pretty">Opens Boudha Dental Care with visits, patients, and call records.</p>
       </div>
       <p className="text-sm mt-4">No account? <Link href="/signup" className="underline">Sign up</Link></p>
     </>
