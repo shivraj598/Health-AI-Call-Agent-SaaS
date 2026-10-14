@@ -1,5 +1,4 @@
-import { requireBusiness } from '@/lib/dal'
-import { one } from '@/lib/dal'
+import { requireBusiness, one } from '@/lib/dal'
 import { BookingForm, AppointmentActions } from '@/components/BookingForm'
 
 export default async function AppointmentsPage() {
@@ -26,33 +25,33 @@ export default async function AppointmentsPage() {
   ])
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-semibold text-balance">Appointments</h1>
-        <p className="text-base text-slate-600 mt-2 text-pretty">The day sheet. Book into open slots, hours and overlaps enforced.</p>
+        <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#787774]">Day sheet</p>
+        <h1 className="font-serif-d text-4xl md:text-5xl mt-4 text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>Appointments</h1>
+        <p className="text-base mt-4 text-pretty">Book into open slots. Hours and overlaps stay enforced.</p>
       </div>
 
       <BookingForm doctors={doctors ?? []} patients={patients ?? []} />
 
-      {/* Day sheet timeline (signature) */}
-      <section className="card-raised p-6" aria-label="Day sheet">
-        <h2 className="text-xl font-semibold">Day sheet</h2>
+      <section className="card-surface p-8" aria-label="Day sheet">
+        <h2 className="font-serif-d text-2xl">Day sheet</h2>
         {(upcoming ?? []).length === 0 ? (
           <div className="text-center py-8">
             <p className="text-base font-medium">Sheet is clear</p>
-            <p className="text-sm text-slate-500 mt-1 text-pretty">Upcoming booked visits will line up here by time.</p>
+            <p className="text-sm text-[#787774] mt-1 text-pretty">Upcoming booked visits will line up here by time.</p>
           </div>
         ) : (
-          <ol className="mt-4 relative border-l divider ml-2 space-y-4">
+          <ol className="mt-6 relative border-l divider ml-2 space-y-4">
             {(upcoming ?? []).map((a: { id: string; starts_at: string; doctors: unknown; patients: unknown }) => (
               <li key={a.id} className="ml-6 relative">
-                <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-teal-600 ring-4 ring-teal-50" aria-hidden />
-                <div className="card-surface p-3 flex flex-wrap items-center justify-between gap-3">
+                <span className="absolute -left-[31px] top-1 w-3 h-3 rounded-full bg-[#111111] ring-4 ring-[#F7F6F3]" aria-hidden />
+                <div className="card-surface p-3 !shadow-none flex flex-wrap items-center justify-between gap-3">
                   <span className="text-sm">
                     <strong>
                       {new Date(a.starts_at).toLocaleString([], { weekday: 'short', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </strong>
-                    <span className="text-slate-500"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
+                    <span className="text-[#787774]"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
                   </span>
                   <AppointmentActions id={a.id} />
                 </div>
@@ -63,15 +62,21 @@ export default async function AppointmentsPage() {
       </section>
 
       {(past ?? []).length > 0 && (
-        <section className="card-raised p-6" aria-label="History">
-          <h2 className="text-xl font-semibold">History</h2>
-          <ul className="mt-4 space-y-2">
-            {(past ?? []).map((a: { id: string; starts_at: string; status: string; doctors: unknown; patients: unknown }) => (
-              <li key={a.id} className="text-sm text-slate-600">
-                {new Date(a.starts_at).toLocaleDateString()} · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name} · {a.status}
-              </li>
-            ))}
-          </ul>
+        <section className="card-surface p-8" aria-label="History">
+          <h2 className="font-serif-d text-2xl">History</h2>
+          <table className="tbl mt-4">
+            <thead><tr><th>Date</th><th>Doctor</th><th>Patient</th><th>Status</th></tr></thead>
+            <tbody>
+              {(past ?? []).map((a: { id: string; starts_at: string; status: string; doctors: unknown; patients: unknown }) => (
+                <tr key={a.id}>
+                  <td>{new Date(a.starts_at).toLocaleDateString()}</td>
+                  <td>{one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name}</td>
+                  <td>{one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</td>
+                  <td><span className={`badge ${a.status === 'completed' ? 'badge-green' : 'badge-bone'}`}>{a.status}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </section>
       )}
     </div>
