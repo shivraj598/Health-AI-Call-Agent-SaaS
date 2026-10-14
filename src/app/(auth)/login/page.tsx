@@ -66,6 +66,7 @@ export default function LoginPage() {
         <p className="text-sm text-[#787774] text-pretty">Opens Boudha Dental Care with visits, patients, and call records.</p>
       </div>
       <p className="text-sm mt-4">No account? <Link href="/signup" className="underline">Sign up</Link></p>
+      <p className="font-mono text-xs text-[#787774] mt-3">Press <kbd>Enter</kbd> to sign in.</p>
     </>
   )
 }
