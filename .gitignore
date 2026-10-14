@@ -43,5 +43,6 @@ CONTEXT.md
 .skills/
 skills/
 .scratch/
+.playwright-mcp/
 docs/spec-*.md
 docs/adr-*.md
