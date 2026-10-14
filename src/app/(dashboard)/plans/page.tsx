@@ -19,30 +19,31 @@ export default async function PlansPage() {
   const { business } = await requireBusiness()
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       <div>
-        <h1 className="text-3xl font-semibold text-balance">Plans</h1>
-        <p className="text-base text-slate-600 mt-2 text-pretty">Checkout opens in Phase 3. Limits below already apply.</p>
+        <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#787774]">Billing</p>
+        <h1 className="font-serif-d text-4xl md:text-5xl mt-4 text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>Plans</h1>
+        <p className="text-base mt-4 text-pretty">Checkout opens in Phase 3. Limits below already apply.</p>
       </div>
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-3 items-start">
         {PLANS.map((p) => {
           const current = business.plan === p.id
           const limits = PLAN_LIMITS[p.id]
           return (
-            <article key={p.id} className={`p-6 rounded-2xl border ${current ? 'border-teal-600 bg-white shadow-card' : 'card-surface'}`}>
+            <article key={p.id} className={`p-8 ${current ? 'rounded-xl border-2 border-[#111111] bg-white' : 'card-surface'}`}>
               <p className="text-sm font-semibold capitalize flex items-center gap-2">
                 {p.id}
-                {current && <span className="badge border-teal-600 text-teal-700 bg-teal-50">Current</span>}
+                {current && <span className="badge badge-green">Current</span>}
               </p>
-              <p className="text-4xl font-semibold mt-2">{price(p.id)}<span className="text-base font-normal text-slate-500">/mo</span></p>
-              <p className="text-sm text-slate-600 mt-2 text-pretty">{p.blurb}</p>
-              <ul className="mt-4 space-y-2 text-sm">
+              <p className="font-serif-d text-5xl mt-3">{price(p.id)}<span className="font-sans text-base font-normal text-[#787774]">/mo</span></p>
+              <p className="text-sm mt-3 text-pretty">{p.blurb}</p>
+              <ul className="mt-6 space-y-2 text-sm border-t divider pt-6 list-none">
                 <li className="flex items-center gap-2">
-                  <CheckCircle size={16} weight="duotone" className="text-teal-700" aria-hidden />
+                  <CheckCircle size={16} weight="fill" aria-hidden />
                   {limits.agents === 0 ? 'Unlimited agents' : `${limits.agents} agent${limits.agents === 1 ? '' : 's'}`}
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle size={16} weight="duotone" className="text-teal-700" aria-hidden />
+                  <CheckCircle size={16} weight="fill" aria-hidden />
                   {limits.bookings === 0 ? 'Unlimited bookings' : `${limits.bookings} bookings a month`}
                 </li>
               </ul>
