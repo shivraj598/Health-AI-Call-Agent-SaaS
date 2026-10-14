@@ -37,10 +37,10 @@ export function AddPatientForm() {
         <input id="pat-phone" type="tel" className="input-field mt-2" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="off" />
       </div>
       <div>
-        <label htmlFor="pat-email" className="text-sm font-semibold">Email <span className="font-normal text-slate-500">(optional)</span></label>
+        <label htmlFor="pat-email" className="text-sm font-semibold">Email <span className="font-normal text-[#787774]">(optional)</span></label>
         <input id="pat-email" type="email" className="input-field mt-2" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" />
       </div>
-      {error && <p className="text-sm text-red-600" role="alert">{error}</p>}
+      {error && <p className="text-sm text-[#9F2F2D]" role="alert">{error}</p>}
       <button className="btn-primary w-full" disabled={loading}>{loading ? 'Adding…' : 'Add patient'}</button>
     </form>
   )
@@ -50,7 +50,7 @@ export function DeletePatientButton({ id, name }: { id: string; name: string }) 
   const [loading, setLoading] = useState(false)
   return (
     <button
-      className="text-sm font-medium text-red-600 hover:underline disabled:opacity-40"
+      className="text-sm font-medium text-[#9F2F2D] hover:underline disabled:opacity-40"
       disabled={loading}
       onClick={async () => {
         if (!confirm(`Remove ${name}?`)) return
