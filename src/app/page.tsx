@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import {
-  PhoneIncoming,
+  Play,
   CalendarCheck,
   ShieldCheck,
   MoonStars,
@@ -12,6 +12,7 @@ import SiteFooter from '@/components/SiteFooter'
 import Reveal from '@/components/Reveal'
 import TaglineReveal from '@/components/TaglineReveal'
 import DemoForm from '@/components/DemoForm'
+import DemoCall from '@/components/DemoCall'
 import {
   Accordion,
   AccordionContent,
@@ -119,14 +120,14 @@ export default function Home() {
       <SiteNav />
 
       <main id="main">
-        {/* ── Hero: editorial thesis ─────────────────── */}
-        <section className="mx-auto max-w-5xl px-6 pt-24 pb-24 md:pt-32 md:pb-32">
+        {/* ── Hero: centered thesis + playable proof ─── */}
+        <section className="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-24 text-center">
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-[0.08em] text-[#787774]">
               For independent clinics
             </p>
             <h1
-              className="font-serif-d mt-6 text-balance max-w-[680px]"
+              className="font-serif-d mt-6 text-balance mx-auto max-w-[680px]"
               style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', lineHeight: 1.1, letterSpacing: '-0.03em' }}
             >
               More booked visits
@@ -135,42 +136,30 @@ export default function Home() {
               <br />
               front desk staff
             </h1>
-            <p className="text-base md:text-lg mt-6 max-w-[680px] text-pretty">
+            <p className="text-base md:text-lg mt-6 mx-auto max-w-[680px] text-pretty">
               HealthCall is the AI receptionist for independent clinics. It answers every
               call, books visits into your doctors calendar, and keeps one record per patient.
             </p>
-            <div className="mt-8 flex items-center gap-6">
+            <div className="mt-8 flex items-center justify-center gap-4">
               <Link href="#demo" className="btn-primary">
                 Book a demo
               </Link>
-              <Link href="#how" className="text-base font-medium underline-offset-4 hover:underline">
-                See how it works
+              <Link href="/signup" className="btn-secondary">
+                Sign up free
               </Link>
             </div>
+            <p className="text-sm mt-4 text-pretty">
+              <Link href="/login" className="underline-offset-4 hover:underline font-medium">Log in</Link>
+              <span className="text-[#787774]"> if you already run a clinic on HealthCall.</span>
+            </p>
             <p className="font-mono text-xs mt-6 text-[#787774]">
               118 clinics · 38.4% fewer missed calls · Free plan, no credit card
             </p>
           </Reveal>
 
-          {/* Hero visual: faux OS window */}
-          <Reveal delay={120} className="mt-16">
-            <div className="card-surface overflow-hidden" role="img" aria-label="HealthCall answering a patient call and booking a visit">
-              <div className="flex items-center gap-2 px-6 py-4 border-b divider bg-white">
-                <span className="w-3 h-3 rounded-full bg-[#EAEAEA]" aria-hidden />
-                <span className="w-3 h-3 rounded-full bg-[#EAEAEA]" aria-hidden />
-                <span className="w-3 h-3 rounded-full bg-[#EAEAEA]" aria-hidden />
-                <span className="font-mono text-xs text-[#787774] ml-3">live call · +977 1 590 2314</span>
-              </div>
-              <div className="p-6 md:p-10 space-y-3 text-[15px] bg-white">
-                <p className="card-surface p-4 text-pretty">Good morning, Boudha Dental Care. Are you calling to book a visit?</p>
-                <p className="card-surface p-4 text-pretty">Yes, tomorrow morning with Dr. Sharma if possible.</p>
-                <p className="card-surface p-4 text-pretty">Dr. Sharma has 9:30 open. Shall I book it under this number?</p>
-                <p className="flex items-center gap-2 p-4 rounded-lg border divider bg-[#F7F6F3] font-medium">
-                  <CheckCircle size={20} weight="fill" aria-hidden />
-                  Visit booked · Tue 9:30 · Dr. Sharma
-                </p>
-              </div>
-            </div>
+          {/* Playable call */}
+          <Reveal delay={120} id="demo-call" className="mt-16 text-left scroll-mt-24">
+            <DemoCall />
           </Reveal>
         </section>
 
@@ -308,9 +297,9 @@ export default function Home() {
           </div>
           <Reveal className="mt-8">
             <p className="card-surface p-6 flex items-center gap-3 text-base">
-              <PhoneIncoming size={22} weight="fill" aria-hidden />
-              <span className="text-pretty">Hear it yourself on a live demo call before you pay anything.</span>
-              <Link href="#demo" className="ml-auto font-semibold underline-offset-4 hover:underline shrink-0">Book</Link>
+              <Play size={22} weight="fill" aria-hidden />
+              <span className="text-pretty">Press play at the top. A 58 second call books a real visit.</span>
+              <Link href="#demo-call" className="ml-auto font-semibold underline-offset-4 hover:underline shrink-0">Listen</Link>
             </p>
           </Reveal>
         </section>
@@ -366,6 +355,31 @@ export default function Home() {
               <DemoForm />
             </Reveal>
           </div>
+
+          {/* Start free now: the second path */}
+          <Reveal className="mt-16">
+            <div className="rounded-xl border-2 border-[#111111] bg-white p-8 md:p-12 grid gap-8 md:grid-cols-2 items-center">
+              <div>
+                <span className="badge badge-green">Start free now</span>
+                <h3 className="font-serif-d text-3xl md:text-4xl mt-4 text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+                  Prefer to click around first?
+                </h3>
+                <p className="text-base mt-4 text-pretty">
+                  Create an account, add your doctors, and book the first visit yourself.
+                  The demo login below opens a clinic with records already inside.
+                </p>
+              </div>
+              <div className="space-y-3">
+                <Link href="/signup" className="btn-primary w-full">
+                  Sign up free
+                </Link>
+                <Link href="/login" className="btn-secondary w-full">
+                  Log in, with one tap demo
+                </Link>
+                <p className="font-mono text-xs text-[#787774] text-center">Free plan · No credit card · Cancel anytime</p>
+              </div>
+            </div>
+          </Reveal>
         </section>
       </main>
 
