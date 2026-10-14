@@ -1,9 +1,9 @@
-import React from 'react'
-
-const not-found = () => {
+export default function NotFound() {
   return (
-    <div>not-found</div>
+    <main className="min-h-screen flex items-center justify-center p-6">
+      <div className="card-raised p-8 text-center">
+        <h1 className="text-xl font-bold">Page not found</h1>
+      </div>
+    </main>
   )
 }
-
-export default not-found
