@@ -1,22 +1,22 @@
+import { Type, type FunctionDeclaration } from '@google/genai'
 import { createServiceClient } from '@/lib/supabase/server'
 import { generateSlots, isWithinHours } from '@/lib/slots'
 
 // Gemini Live function declarations for the voice agent.
-// Same booking tools as before, in models.functionDeclarations shape.
-export const GEMINI_FUNCTION_DECLARATIONS = [
+export const GEMINI_FUNCTION_DECLARATIONS: FunctionDeclaration[] = [
   {
     name: 'list_doctors',
     description: 'List doctors at the clinic with specialties and slot lengths.',
-    parameters: { type: 'OBJECT', properties: {} },
+    parameters: { type: Type.OBJECT, properties: {} },
   },
   {
     name: 'check_availability',
     description: 'List open booking times for a doctor on a day (YYYY-MM-DD).',
     parameters: {
-      type: 'OBJECT',
+      type: Type.OBJECT,
       properties: {
-        doctor_id: { type: 'STRING', description: 'Doctor id from list_doctors.' },
-        day: { type: 'STRING', description: 'Day as YYYY-MM-DD.' },
+        doctor_id: { type: Type.STRING, description: 'Doctor id from list_doctors.' },
+        day: { type: Type.STRING, description: 'Day as YYYY-MM-DD.' },
       },
       required: ['doctor_id', 'day'],
     },
@@ -25,10 +25,10 @@ export const GEMINI_FUNCTION_DECLARATIONS = [
     name: 'find_or_create_patient',
     description: 'Find a patient by phone or create the record.',
     parameters: {
-      type: 'OBJECT',
+      type: Type.OBJECT,
       properties: {
-        full_name: { type: 'STRING' },
-        phone: { type: 'STRING' },
+        full_name: { type: Type.STRING },
+        phone: { type: Type.STRING },
       },
       required: ['full_name', 'phone'],
     },
@@ -37,11 +37,11 @@ export const GEMINI_FUNCTION_DECLARATIONS = [
     name: 'book_appointment',
     description: 'Book a visit at an ISO start time offered by check_availability.',
     parameters: {
-      type: 'OBJECT',
+      type: Type.OBJECT,
       properties: {
-        doctor_id: { type: 'STRING' },
-        patient_id: { type: 'STRING', description: 'Patient id from find_or_create_patient.' },
-        starts_at: { type: 'STRING', description: 'ISO time from check_availability.' },
+        doctor_id: { type: Type.STRING },
+        patient_id: { type: Type.STRING, description: 'Patient id from find_or_create_patient.' },
+        starts_at: { type: Type.STRING, description: 'ISO time from check_availability.' },
       },
       required: ['doctor_id', 'patient_id', 'starts_at'],
     },
@@ -50,8 +50,8 @@ export const GEMINI_FUNCTION_DECLARATIONS = [
     name: 'cancel_appointment',
     description: 'Cancel a booked visit by its id.',
     parameters: {
-      type: 'OBJECT',
-      properties: { appointment_id: { type: 'STRING' } },
+      type: Type.OBJECT,
+      properties: { appointment_id: { type: Type.STRING } },
       required: ['appointment_id'],
     },
   },
