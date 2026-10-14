@@ -44,10 +44,10 @@ export default function DemoForm() {
 
   if (state === 'done') {
     return (
-      <div className="card-surface p-8 text-center" role="status">
-        <CheckCircle size={40} weight="duotone" className="mx-auto text-teal-700" aria-hidden />
-        <h3 className="text-xl font-semibold mt-4 text-balance">Request received</h3>
-        <p className="text-base text-slate-600 mt-2 text-pretty">
+      <div className="card-surface p-10 text-center" role="status">
+        <CheckCircle size={40} weight="fill" className="mx-auto" aria-hidden />
+        <h3 className="font-serif-d text-3xl mt-6 text-balance">Request received</h3>
+        <p className="text-base text-[#2F3437] mt-3 text-pretty">
           Thanks {name.split(' ')[0]}. We will reply to {email} within one business day.
         </p>
       </div>
@@ -55,24 +55,25 @@ export default function DemoForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="card-raised p-8 space-y-4" aria-label="Book a demo">
+    <form onSubmit={onSubmit} noValidate className="card-surface p-8 md:p-10 space-y-4" aria-label="Book a demo">
+      <h3 className="font-serif-d text-3xl text-balance">Book a demo</h3>
       <div>
         <label htmlFor="demo-name" className="text-sm font-semibold">Your name</label>
         <input id="demo-name" className="input-field mt-2" value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" />
-        {errors.name && <p className="text-sm text-red-600 mt-2">{errors.name}</p>}
+        {errors.name && <p className="text-sm text-[#9F2F2D] mt-2">{errors.name}</p>}
       </div>
       <div>
         <label htmlFor="demo-clinic" className="text-sm font-semibold">Clinic name</label>
         <input id="demo-clinic" className="input-field mt-2" value={clinic} onChange={(e) => setClinic(e.target.value)} autoComplete="organization" />
-        {errors.clinic && <p className="text-sm text-red-600 mt-2">{errors.clinic}</p>}
+        {errors.clinic && <p className="text-sm text-[#9F2F2D] mt-2">{errors.clinic}</p>}
       </div>
       <div>
         <label htmlFor="demo-email" className="text-sm font-semibold">Work email</label>
         <input id="demo-email" type="email" className="input-field mt-2" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
-        {errors.email && <p className="text-sm text-red-600 mt-2">{errors.email}</p>}
+        {errors.email && <p className="text-sm text-[#9F2F2D] mt-2">{errors.email}</p>}
       </div>
       <div>
-        <label htmlFor="demo-phone" className="text-sm font-semibold">Phone <span className="font-normal text-slate-500">(optional)</span></label>
+        <label htmlFor="demo-phone" className="text-sm font-semibold">Phone <span className="font-normal text-[#787774]">(optional)</span></label>
         <input id="demo-phone" type="tel" className="input-field mt-2" value={phone} onChange={(e) => setPhone(e.target.value)} autoComplete="tel" />
       </div>
       {state === 'sending' ? (
@@ -83,11 +84,11 @@ export default function DemoForm() {
         <button type="submit" className="btn-primary w-full">Book a demo</button>
       )}
       {state === 'error' && (
-        <p className="flex items-center gap-2 text-sm text-red-600" role="alert">
-          <WarningCircle size={16} aria-hidden /> {serverError}
+        <p className="flex items-center gap-2 text-sm text-[#9F2F2D]" role="alert">
+          <WarningCircle size={16} weight="fill" aria-hidden /> {serverError}
         </p>
       )}
-      <p className="text-sm text-slate-500 text-pretty">Free plan, no credit card, cancel anytime.</p>
+      <p className="text-sm text-[#787774] text-pretty">Free plan, no credit card, cancel anytime.</p>
     </form>
   )
 }
