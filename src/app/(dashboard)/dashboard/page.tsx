@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getActiveBusiness, monthStartISO } from '@/lib/dal'
+import { getActiveBusiness, monthStartISO, one } from '@/lib/dal'
 import { PLAN_LIMITS } from '@/lib/plans'
 import CreateBusinessForm from '@/components/CreateBusinessForm'
 
@@ -63,10 +63,10 @@ export default async function DashboardHome() {
             </div>
           ) : (
             <ul className="mt-4 space-y-2">
-              {(upcoming ?? []).map((a: { id: string; starts_at: string; doctors: { name: string } | null; patients: { full_name: string } | null }) => (
+              {(upcoming ?? []).map((a: { id: string; starts_at: string; doctors: unknown; patients: unknown }) => (
                 <li key={a.id} className="card-surface p-3 text-sm">
                   <strong>{new Date(a.starts_at).toLocaleString()}</strong>
-                  <span className="text-slate-500"> · {a.doctors?.name} · {a.patients?.full_name}</span>
+                  <span className="text-slate-500"> · {one<{ name: string }>(a.doctors as { name: string } | { name: string }[] | null)?.name} · {one<{ full_name: string }>(a.patients as { full_name: string } | { full_name: string }[] | null)?.full_name}</span>
                 </li>
               ))}
             </ul>
