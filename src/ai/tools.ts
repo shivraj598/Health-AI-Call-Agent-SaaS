@@ -1,65 +1,61 @@
 import { createServiceClient } from '@/lib/supabase/server'
 import { generateSlots, isWithinHours } from '@/lib/slots'
 
-// OpenAI function-calling schemas exposed to the Realtime voice agent.
-export const VOICE_TOOLS = [
+// Gemini Live function declarations for the voice agent.
+// Same booking tools as before, in models.functionDeclarations shape.
+export const GEMINI_FUNCTION_DECLARATIONS = [
   {
-    type: 'function',
     name: 'list_doctors',
     description: 'List doctors at the clinic with specialties and slot lengths.',
-    parameters: { type: 'object', properties: {}, required: [] },
+    parameters: { type: 'OBJECT', properties: {} },
   },
   {
-    type: 'function',
     name: 'check_availability',
     description: 'List open booking times for a doctor on a day (YYYY-MM-DD).',
     parameters: {
-      type: 'object',
+      type: 'OBJECT',
       properties: {
-        doctor_id: { type: 'string', description: 'Doctor id from list_doctors.' },
-        day: { type: 'string', description: 'Day as YYYY-MM-DD.' },
+        doctor_id: { type: 'STRING', description: 'Doctor id from list_doctors.' },
+        day: { type: 'STRING', description: 'Day as YYYY-MM-DD.' },
       },
       required: ['doctor_id', 'day'],
     },
   },
   {
-    type: 'function',
     name: 'find_or_create_patient',
     description: 'Find a patient by phone or create the record.',
     parameters: {
-      type: 'object',
+      type: 'OBJECT',
       properties: {
-        full_name: { type: 'string' },
-        phone: { type: 'string' },
+        full_name: { type: 'STRING' },
+        phone: { type: 'STRING' },
       },
       required: ['full_name', 'phone'],
     },
   },
   {
-    type: 'function',
     name: 'book_appointment',
     description: 'Book a visit at an ISO start time offered by check_availability.',
     parameters: {
-      type: 'object',
+      type: 'OBJECT',
       properties: {
-        doctor_id: { type: 'string' },
-        patient_id: { type: 'string', description: 'Patient id from find_or_create_patient.' },
-        starts_at: { type: 'string', description: 'ISO time from check_availability.' },
+        doctor_id: { type: 'STRING' },
+        patient_id: { type: 'STRING', description: 'Patient id from find_or_create_patient.' },
+        starts_at: { type: 'STRING', description: 'ISO time from check_availability.' },
       },
       required: ['doctor_id', 'patient_id', 'starts_at'],
     },
   },
   {
-    type: 'function',
     name: 'cancel_appointment',
     description: 'Cancel a booked visit by its id.',
     parameters: {
-      type: 'object',
-      properties: { appointment_id: { type: 'string' } },
+      type: 'OBJECT',
+      properties: { appointment_id: { type: 'STRING' } },
       required: ['appointment_id'],
     },
   },
-] as const
+]
 
 export async function runVoiceTool(
   businessId: string,
