@@ -17,7 +17,7 @@ export default async function SitePage({ params }: { params: { slug: string } })
     .eq('business_id', business.id)
 
   return (
-    <main className="min-h-screen gradient-mesh p-6 flex items-center justify-center">
+    <main className="bg-page min-h-screen p-6 flex items-center justify-center">
       <div className="card-raised max-w-lg w-full p-8 animate-fade-up">
         <p className="badge border-teal-600 text-teal-700 bg-teal-50">Book a visit · {business.plan}</p>
         <h1 className="text-2xl font-bold mt-2">{business.name}</h1>
