@@ -37,6 +37,19 @@ export default async function DashboardHome() {
         <h1 className="font-serif-d text-4xl md:text-5xl mt-4 text-balance" style={{ letterSpacing: '-0.02em', lineHeight: 1.1 }}>{business.name}</h1>
       </div>
 
+      <div className="grid gap-3 md:grid-cols-4">
+        {[
+          ['Book visit', '/appointments'],
+          ['Add patient', '/patients'],
+          ['Add doctor', '/doctors'],
+          ['Review calls', '/calls'],
+        ].map(([label, href]) => (
+          <Link key={label} href={href} className="btn-secondary justify-center">
+            {label}
+          </Link>
+        ))}
+      </div>
+
       <div className="grid gap-4 md:grid-cols-4">
         {[
           ['Doctors', String(doctors ?? 0), bar(doctors ?? 0, limits.agents), '/doctors'],
