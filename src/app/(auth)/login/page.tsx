@@ -3,7 +3,11 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { Lightning } from '@phosphor-icons/react'
 import { createClient } from '@/lib/supabase/client'
+
+const DEMO_EMAIL = 'demo@healthcall.app'
+const DEMO_PASSWORD = 'Demo-Clinic-2026'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -11,6 +15,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [err, setErr] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
+  const [demoLoading, setDemoLoading] = useState(false)
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -19,6 +24,23 @@ export default function LoginPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     setLoading(false)
+    if (error) return setErr(error.message)
+    router.push('/dashboard')
+    router.refresh()
+  }
+
+  function autofill() {
+    setEmail(DEMO_EMAIL)
+    setPassword(DEMO_PASSWORD)
+    setErr(null)
+  }
+
+  async function loginAsDemo() {
+    setErr(null)
+    setDemoLoading(true)
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword({ email: DEMO_EMAIL, password: DEMO_PASSWORD })
+    setDemoLoading(false)
     if (error) return setErr(error.message)
     router.push('/dashboard')
     router.refresh()
@@ -33,6 +55,16 @@ export default function LoginPage() {
         {err && <p className="text-sm text-red-600">{err}</p>}
         <button className="btn-primary w-full" disabled={loading}>{loading ? 'Logging in…' : 'Login'}</button>
       </form>
+      <div className="mt-4 space-y-2 border-t divider pt-4">
+        <button onClick={autofill} className="btn-secondary w-full">
+          Autofill demo login
+        </button>
+        <button onClick={loginAsDemo} disabled={demoLoading} className="btn-primary w-full">
+          <Lightning size={18} weight="duotone" aria-hidden />
+          {demoLoading ? 'Opening demo…' : 'Login as demo customer'}
+        </button>
+        <p className="text-sm text-slate-500 text-pretty">Opens Boudha Dental Care with visits, patients, and call records.</p>
+      </div>
       <p className="text-sm mt-4">No account? <Link href="/signup" className="underline">Sign up</Link></p>
     </>
   )
